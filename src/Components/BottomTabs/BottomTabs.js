@@ -26,10 +26,6 @@ const BottomTabs = ({ route }) => {
 
   const theme = isDarkTheme ? CombinedDarkTheme : CombinedDefaultTheme;
 
-  //   const toggleTheme = () => {
-  //     setIsDarkTheme(!isDarkTheme);
-  //   };
-
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>

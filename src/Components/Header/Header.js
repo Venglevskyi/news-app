@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Appbar } from "react-native-paper";
 
-// import Toogle from "../Switch";
-
 const Header = ({ scene, previous, navigation, toggleTheme }) => {
   const { options } = scene.descriptor;
   const title =
@@ -16,7 +14,6 @@ const Header = ({ scene, previous, navigation, toggleTheme }) => {
     <Appbar.Header>
       {previous && <Appbar.BackAction onPress={navigation.goBack} />}
       <Appbar.Content title={title} />
-      {/* <Toogle onToggleTheme={toggleTheme} /> */}
     </Appbar.Header>
   );
 };

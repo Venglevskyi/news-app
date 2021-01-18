@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { View, ScrollView } from "react-native";
 import { TextInput, Button, Surface } from "react-native-paper";
 import { useFormik } from "formik";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "./style";
 import { formSchema } from "./formSchema";
@@ -12,6 +13,19 @@ import { authUser } from "../../redux/authActions";
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("token");
+        dispatch(authUser({ token: value }));
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  }, []);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -22,11 +36,13 @@ const Home = ({ navigation }) => {
       password: "",
     },
     onSubmit: ({ name, password }, actions) => {
-      dispatch(authUser({ name, password }));
       formSchema.isValid({ name, password }).then((valid) => {
         if (valid) {
+          setToken(true);
+          dispatch(authUser({ name, password, token }));
           navigation.navigate("Profile");
         } else {
+          dispatch(authUser({ name, password, token }));
           showModal();
         }
       });

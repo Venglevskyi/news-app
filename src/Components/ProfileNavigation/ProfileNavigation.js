@@ -7,11 +7,10 @@ import Profile from "../../Screens/Profile";
 const Drawer = createDrawerNavigator();
 
 const DrawerContent = () => {
-  const userName = useSelector((state) => state.auth);
-  const { name } = userName;
+  const userName = useSelector((state) => state.auth.name);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>{`Hello ${name}`}</Text>
+      <Text>{`Hello ${userName}`}</Text>
     </View>
   );
 };
